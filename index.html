@@ -4,124 +4,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jabones Artesanales S&B</title>
+<title>S&B Jabones Artesanales</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+body{
+margin:0;
+font-family:Segoe UI,Arial;
+background:#f5f7f6
 }
 
 /* HEADER */
-header {
-    background: #111;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    position: sticky;
-    top: 0;
+header{
+background:linear-gradient(135deg,#6db193,#4a8f74);
+color:#fff;
+text-align:center;
+padding:20px;
+position:sticky;
+top:0;
+z-index:1000;
 }
 
-/* HERO */
-.hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-    url('img/banner.jpg') center/cover no-repeat;
-    color: white;
-    text-align: center;
-    padding: 80px 20px;
+header h1{font-size:20px;margin:0}
+header p{margin:5px 0 0;font-size:14px}
+
+/* CATÁLOGO */
+.catalogo{padding:20px}
+
+.productos{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px
 }
 
-/* SECCIONES */
-section {
-    padding: 40px 20px;
-    text-align: center;
+.producto{
+background:#fff;
+border-radius:12px;
+padding:12px;
+box-shadow:0 4px 12px rgba(0,0,0,.1)
 }
 
-/* PRODUCTOS */
-.productos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.producto img{
+width:100%;
+border-radius:10px;
+height:180px;
+object-fit:cover
 }
 
-.card {
-    width: 280px;
-    margin: 15px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+.precio{
+color:#4a8f74;
+font-weight:bold;
+font-size:18px
 }
 
-.card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
+.controles{
+display:flex;
+gap:8px;
+margin-top:10px
 }
 
-.card h3 {
-    margin: 10px;
+input{
+width:60px;
+padding:5px;
+font-size:16px
 }
 
-.precio {
-    color: #28a745;
-    font-weight: bold;
+button{
+background:#6db193;
+color:#fff;
+border:none;
+padding:10px;
+border-radius:6px;
+cursor:pointer;
+flex:1
 }
 
-/* BOTÓN */
-.btn {
-    background: #28a745;
-    color: white;
-    padding: 10px;
-    display: inline-block;
-    margin: 10px;
-    text-decoration: none;
-    border-radius: 6px;
+/* CARRITO DESKTOP */
+.carrito{
+position:fixed;
+top:20px;
+right:20px;
+background:#fff;
+padding:12px;
+width:250px;
+box-shadow:0 4px 15px rgba(0,0,0,.2);
+border-radius:10px
 }
 
-/* BENEFICIOS */
-.beneficios {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+/* MOBILE */
+@media (max-width:768px){
+
+.productos{
+grid-template-columns:1fr;
 }
 
-.beneficio {
-    width: 250px;
-    margin: 15px;
+.producto img{
+height:200px;
 }
 
-/* FOOTER */
-footer {
-    background: #111;
-    color: white;
-    padding: 20px;
+.controles{
+flex-direction:row;
 }
 
-/* WHATSAPP */
-.whatsapp {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25D366;
-    color: white;
-    padding: 15px;
-    border-radius: 50%;
-    font-size: 20px;
-    text-decoration: none;
+input{
+width:70px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .productos, .beneficios {
-        flex-direction: column;
-        align-items: center;
-    }
+/* carrito tipo barra inferior */
+.carrito{
+top:auto;
+bottom:0;
+right:0;
+left:0;
+width:100%;
+border-radius:12px 12px 0 0;
+}
 
-    .card {
-        width: 90%;
-    }
+.carrito ul{
+max-height:100px;
+overflow:auto;
+}
 }
 </style>
 
@@ -130,75 +131,97 @@ footer {
 <body>
 
 <header>
-    <h2>Jabones Artesanales S&B</h2>
+<h1>🌿 S&B Jabones Artesanales</h1>
+<p>Esencial con estatus para tu piel</p>
 </header>
 
-<section class="hero">
-    <h1>Cuidado natural para tu piel</h1>
-    <p>Hechos a mano con ingredientes 100% naturales</p>
-</section>
+<section class="catalogo">
+<h2>Productos ($30 c/u)</h2>
 
-<section>
-    <h2>🛒 Nuestros Productos</h2>
-
-```
 <div class="productos">
 
-    <div class="card">
-        <img src="img/jabon1.jpg">
-        <h3>Jabón Mar Pez</h3>
-        <p class="precio">$50 MXN</p>
-        <a class="btn" href="https://wa.me/523333945657?text=Hola%20quiero%20comprar%20el%20Jabón%20Mar%20Pez">Comprar</a>
-    </div>
+<div class="producto">
+<img src="img/jabonCafeFlor.jpg">
+<h3>Jabón Flor Café</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c1" value="1" min="1">
+<button onclick="add('Flor Café',30,'c1')">Agregar</button>
+</div>
+</div>
 
-    <div class="card">
-        <img src="img/jabon2.jpg">
-        <h3>Jabón Lavanda</h3>
-        <p class="precio">$50 MXN</p>
-        <a class="btn" href="https://wa.me/523333945657?text=Hola%20quiero%20comprar%20el%20Jabón%20Lavanda">Comprar</a>
-    </div>
+<div class="producto">
+<img src="img/jabonRectangular.jpg">
+<h3>Jabón S&B Azul</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c2" value="1" min="1">
+<button onclick="add('Azul S&B',30,'c2')">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="img/jabonDeCoco.jpg">
+<h3>Jabón Coco</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c3" value="1" min="1">
+<button onclick="add('Coco',30,'c3')">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="img/jabonDeMar.jpg">
+<h3>Jabón Mar Concha</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c4" value="1" min="1">
+<button onclick="add('Concha',30,'c4')">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="img/jabonDeMarDove.jpg">
+<h3>Jabón Mar Pez</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c5" value="1" min="1">
+<button onclick="add('Pez',30,'c5')">Agregar</button>
+</div>
+</div>
 
 </div>
-```
-
 </section>
 
-<section>
-    <h2>⭐ ¿Por qué elegirnos?</h2>
-
-```
-<div class="beneficios">
-    <div class="beneficio">
-        <h3>🌿 Natural</h3>
-        <p>Ingredientes orgánicos y seguros para tu piel</p>
-    </div>
-
-    <div class="beneficio">
-        <h3>🧼 Artesanal</h3>
-        <p>Hecho a mano con cuidado y calidad</p>
-    </div>
-
-    <div class="beneficio">
-        <h3>🚚 Entregas</h3>
-        <p>Servicio rápido y confiable</p>
-    </div>
+<div class="carrito">
+<h3>🛒 Carrito</h3>
+<ul id="lista"></ul>
+<p>Total: $<span id="total">0</span></p>
+<button onclick="comprar()">WhatsApp</button>
 </div>
-```
 
-</section>
+<script>
+let cart=[];let total=0;
 
-<section>
-    <h2>👩‍💼 Sobre Nosotros</h2>
-    <p>Somos una empresa joven dedicada a la elaboración de jabones artesanales personalizados, ofreciendo productos naturales de alta calidad para el cuidado de la piel.</p>
-</section>
+function add(n,p,id){
+let q=document.getElementById(id).value;
+for(let i=0;i<q;i++){cart.push({n,p});total+=p;}
+render();
+}
 
-<footer>
-    <p>📍 Guadalajara, Jalisco</p>
-    <p>📞 33 33 94 56 57</p>
-    <p>© 2026 Jabones Artesanales S&B</p>
-</footer>
+function render(){
+let l=document.getElementById("lista");l.innerHTML="";
+cart.forEach(i=>{l.innerHTML+="<li>"+i.n+" - $"+i.p+"</li>"});
+document.getElementById("total").innerText=total;
+}
 
-<a class="whatsapp" href="https://wa.me/523333945657" target="_blank">💬</a>
+function comprar(){
+let msg="Hola, quiero comprar:\n";
+cart.forEach(i=>{msg+="- "+i.n+"\n"});
+msg+="Total: $"+total;
+window.open("https://wa.me/523333945657?text="+encodeURIComponent(msg));
+}
+</script>
 
 </body>
 </html>
