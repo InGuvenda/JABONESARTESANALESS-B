@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&B Jabones Artesanales</title>
+<style>
+body{margin:0;font-family:Segoe UI,Arial;background:#f5f7f6}
+header{background:linear-gradient(135deg,#6db193,#4a8f74);color:#fff;text-align:center;padding:30px}
+.catalogo{padding:30px}
+.productos{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.producto{background:#fff;border-radius:12px;padding:12px;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.producto img{width:100%;border-radius:10px}
+.precio{color:#4a8f74;font-weight:bold;font-size:18px}
+.controles{display:flex;gap:8px;margin-top:8px}
+input{width:60px}
+button{background:#6db193;color:#fff;border:none;padding:8px;border-radius:6px;cursor:pointer}
+.carrito{position:fixed;top:20px;right:20px;background:#fff;padding:12px;width:250px;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🌿 S&B Jabones Artesanales</h1>
+<p>Esencial con estatus para tu piel</p>
+</header>
+
+<section class="catalogo">
+<h2>Productos ($30 c/u)</h2>
+<div class="productos">
+
+<div class="producto">
+<img src="img/jabonCafeFlor.jpg">
+<h3>Jabón Flor Café</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c1" value="1" min="1">
+<button onclick="add('Flor Café',30,'c1')">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="img/jabonRectangular.jpg">
+<h3>Jabón S&B Azul</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c2" value="1" min="1">
+<button onclick="add('Azul S&B',30,'c2')">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="img/jabonDeCoco.jpg">
+<h3>Jabón Coco</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c3" value="1" min="1">
+<button onclick="add('Coco',30,'c3')">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="img/jabonDeMar.jpg">
+<h3>Jabón Mar Concha</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c4" value="1" min="1">
+<button onclick="add('Concha',30,'c4')">Agregar</button>
+</div>
+</div>
+
+<div class="producto">
+<img src="img/jabonDeMarDove.jpg">
+<h3>Jabón Mar Pez</h3>
+<p class="precio">$30</p>
+<div class="controles">
+<input type="number" id="c5" value="1" min="1">
+<button onclick="add('Pez',30,'c5')">Agregar</button>
+</div>
+</div>
+
+</div>
+</section>
+
+<div class="carrito">
+<h3>🛒 Carrito</h3>
+<ul id="lista"></ul>
+<p>Total: $<span id="total">0</span></p>
+<button onclick="comprar()">WhatsApp</button>
+</div>
+
+<script>
+let cart=[];let total=0;
+
+function add(n,p,id){
+let q=document.getElementById(id).value;
+for(let i=0;i<q;i++){cart.push({n,p});total+=p;}
+render();
+}
+
+function render(){
+let l=document.getElementById("lista");l.innerHTML="";
+cart.forEach(i=>{l.innerHTML+="<li>"+i.n+" - $"+i.p+"</li>"});
+document.getElementById("total").innerText=total;
+}
+
+function comprar(){
+let msg="Hola, quiero comprar:\n";
+cart.forEach(i=>{msg+="- "+i.n+"\n"});
+msg+="Total: $"+total;
+window.open("https://wa.me/523333945657?text="+encodeURIComponent(msg));
+}
+</script>
+
+</body>
+</html>
