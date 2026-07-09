@@ -28,7 +28,16 @@ header h1{font-size:20px;margin:0}
 header p{margin:5px 0 0;font-size:14px}
 
 /* CATÁLOGO */
-.catalogo{padding:20px}
+.catalogo{
+padding:20px;
+}
+
+/* 🔥 SOLUCIÓN: espacio inferior para carrito en móvil */
+@media (max-width:768px){
+.catalogo{
+padding-bottom:140px;
+}
+}
 
 .productos{
 display:grid;
@@ -87,7 +96,8 @@ background:#fff;
 padding:12px;
 width:250px;
 box-shadow:0 4px 15px rgba(0,0,0,.2);
-border-radius:10px
+border-radius:10px;
+z-index:2000;
 }
 
 /* MOBILE */
@@ -117,10 +127,12 @@ right:0;
 left:0;
 width:100%;
 border-radius:12px 12px 0 0;
+max-height:140px;
+overflow:hidden;
 }
 
 .carrito ul{
-max-height:100px;
+max-height:70px;
 overflow:auto;
 }
 }
@@ -201,23 +213,32 @@ overflow:auto;
 </div>
 
 <script>
-let cart=[];let total=0;
+let cart=[];
+let total=0;
 
 function add(n,p,id){
 let q=document.getElementById(id).value;
-for(let i=0;i<q;i++){cart.push({n,p});total+=p;}
+for(let i=0;i<q;i++){
+cart.push({n,p});
+total+=p;
+}
 render();
 }
 
 function render(){
-let l=document.getElementById("lista");l.innerHTML="";
-cart.forEach(i=>{l.innerHTML+="<li>"+i.n+" - $"+i.p+"</li>"});
+let l=document.getElementById("lista");
+l.innerHTML="";
+cart.forEach(i=>{
+l.innerHTML+="<li>"+i.n+" - $"+i.p+"</li>";
+});
 document.getElementById("total").innerText=total;
 }
 
 function comprar(){
 let msg="Hola, quiero comprar:\n";
-cart.forEach(i=>{msg+="- "+i.n+"\n"});
+cart.forEach(i=>{
+msg+="- "+i.n+"\n";
+});
 msg+="Total: $"+total;
 window.open("https://wa.me/523333945657?text="+encodeURIComponent(msg));
 }
