@@ -24,20 +24,10 @@ top:0;
 z-index:1000;
 }
 
-header h1{font-size:20px;margin:0}
-header p{margin:5px 0 0;font-size:14px}
+header h1{margin:0;font-size:20px}
 
 /* CATÁLOGO */
-.catalogo{
-padding:20px;
-}
-
-/* 🔥 SOLUCIÓN: espacio inferior para carrito en móvil */
-@media (max-width:768px){
-.catalogo{
-padding-bottom:140px;
-}
-}
+.catalogo{padding:20px}
 
 .productos{
 display:grid;
@@ -49,14 +39,19 @@ gap:15px
 background:#fff;
 border-radius:12px;
 padding:12px;
-box-shadow:0 4px 12px rgba(0,0,0,.1)
+box-shadow:0 4px 12px rgba(0,0,0,.1);
+transition:.3s
+}
+
+.producto:hover{
+transform:translateY(-5px)
 }
 
 .producto img{
 width:100%;
-border-radius:10px;
 height:180px;
-object-fit:cover
+object-fit:cover;
+border-radius:10px
 }
 
 .precio{
@@ -87,53 +82,74 @@ cursor:pointer;
 flex:1
 }
 
-/* CARRITO DESKTOP */
-.carrito{
+/* BOTÓN FLOTANTE */
+.btn-carrito{
 position:fixed;
-top:20px;
+bottom:20px;
 right:20px;
+background:#4a8f74;
+color:#fff;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+cursor:pointer;
+box-shadow:0 4px 15px rgba(0,0,0,.3);
+z-index:3000;
+}
+
+.contador{
+position:absolute;
+top:-5px;
+right:-5px;
+background:red;
+color:#fff;
+font-size:12px;
+padding:4px 7px;
+border-radius:50%;
+}
+
+/* PANEL CARRITO */
+.panel{
+position:fixed;
+bottom:-100%;
+left:0;
+right:0;
 background:#fff;
-padding:12px;
-width:250px;
-box-shadow:0 4px 15px rgba(0,0,0,.2);
-border-radius:10px;
-z-index:2000;
+border-radius:15px 15px 0 0;
+box-shadow:0 -4px 20px rgba(0,0,0,.3);
+padding:15px;
+transition:.4s;
+z-index:2500;
+max-height:70%;
+overflow:auto;
+}
+
+.panel.active{
+bottom:0;
+}
+
+.panel h3{
+margin-top:0;
+}
+
+.cerrar{
+float:right;
+cursor:pointer;
+font-size:18px;
+}
+
+ul{
+padding-left:15px;
 }
 
 /* MOBILE */
 @media (max-width:768px){
-
 .productos{
 grid-template-columns:1fr;
-}
-
-.producto img{
-height:200px;
-}
-
-.controles{
-flex-direction:row;
-}
-
-input{
-width:70px;
-}
-
-/* carrito tipo barra inferior */
-.carrito{
-top:auto;
-bottom:0;
-right:0;
-left:0;
-width:100%;
-border-radius:12px 12px 0 0;
-max-height:140px;
-overflow:hidden;
-}
-
-.carrito ul{
-max-height:70px;
-overflow:auto;
 }
 }
 </style>
@@ -205,11 +221,21 @@ overflow:auto;
 </div>
 </section>
 
-<div class="carrito">
-<h3>🛒 Carrito</h3>
+<!-- BOTÓN -->
+
+<div class="btn-carrito" onclick="toggleCart()">
+🛒
+<span class="contador" id="count">0</span>
+</div>
+
+<!-- PANEL -->
+
+<div class="panel" id="panel">
+<span class="cerrar" onclick="toggleCart()">✖</span>
+<h3>Tu pedido</h3>
 <ul id="lista"></ul>
 <p>Total: $<span id="total">0</span></p>
-<button onclick="comprar()">WhatsApp</button>
+<button onclick="comprar()">Comprar por WhatsApp</button>
 </div>
 
 <script>
@@ -218,28 +244,40 @@ let total=0;
 
 function add(n,p,id){
 let q=document.getElementById(id).value;
+
 for(let i=0;i<q;i++){
 cart.push({n,p});
 total+=p;
 }
-render();
+
+update();
 }
 
-function render(){
+function update(){
 let l=document.getElementById("lista");
 l.innerHTML="";
+
 cart.forEach(i=>{
 l.innerHTML+="<li>"+i.n+" - $"+i.p+"</li>";
 });
+
 document.getElementById("total").innerText=total;
+document.getElementById("count").innerText=cart.length;
+}
+
+function toggleCart(){
+document.getElementById("panel").classList.toggle("active");
 }
 
 function comprar(){
 let msg="Hola, quiero comprar:\n";
+
 cart.forEach(i=>{
 msg+="- "+i.n+"\n";
 });
+
 msg+="Total: $"+total;
+
 window.open("https://wa.me/523333945657?text="+encodeURIComponent(msg));
 }
 </script>
