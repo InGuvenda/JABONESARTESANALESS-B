@@ -1,24 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&B Jabones Artesanales</title>
+
+<style>
+body{
+margin:0;
+font-family:Segoe UI,Arial;
+background:#f5f7f6
+}
+
+header{
+background:linear-gradient(135deg,#6db193,#4a8f74);
+color:#fff;
+text-align:center;
+padding:20px;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.catalogo{padding:20px}
+
+.productos{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px
+}
+
+.producto{
+background:#fff;
+border-radius:12px;
+padding:12px;
+box-shadow:0 4px 12px rgba(0,0,0,.1);
+transition:.3s
+}
+
+.producto:hover{
+transform:translateY(-5px)
+}
+
+.producto img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:10px
+}
+
+.precio{
+color:#4a8f74;
+font-weight:bold;
+font-size:18px
+}
+
+.controles{
+display:flex;
+gap:8px;
+margin-top:10px
+}
+
+input{
+width:60px;
+padding:5px;
+}
+
+button{
+background:#6db193;
+color:#fff;
+border:none;
+padding:10px;
+border-radius:6px;
+cursor:pointer;
+flex:1
+}
+
+/* carrito */
+.btn-carrito{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#4a8f74;
+color:#fff;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+cursor:pointer;
+box-shadow:0 4px 15px rgba(0,0,0,.3);
+z-index:3000;
+}
+
+.contador{
+position:absolute;
+top:-5px;
+right:-5px;
+background:red;
+color:#fff;
+font-size:12px;
+padding:4px 7px;
+border-radius:50%;
+}
+
+.panel{
+position:fixed;
+bottom:-100%;
+left:0;
+right:0;
+background:#fff;
+border-radius:15px 15px 0 0;
+box-shadow:0 -4px 20px rgba(0,0,0,.3);
+padding:15px;
+transition:.4s;
+z-index:2500;
+max-height:70%;
+overflow:auto;
+}
+
+.panel.active{
+bottom:0;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>🌿 S&B Jabones Artesanales</h1>
+<p>Esencial con estatus para tu piel</p>
+</header>
+
+<section class="catalogo">
+<h2>Productos ($30 c/u)</h2>
+<div class="productos" id="productos"></div>
+</section>
+
+<!-- carrito -->
+<div class="btn-carrito" onclick="toggleCart()">
+🛒 <span class="contador" id="count">0</span>
+</div>
+
+<!-- panel -->
+<div class="panel" id="panel">
+<span onclick="toggleCart()">✖</span>
+<h3>Tu pedido</h3>
+<ul id="lista"></ul>
+<p>Total: $<span id="total">0</span></p>
+<button onclick="comprar()">Comprar por WhatsApp</button>
+</div>
+
 <script>
 
-/* 🔥 PRODUCTOS */
+/* 🔥 BASE DE PRODUCTOS (AQUÍ TRABAJAS SIEMPRE) */
 const productos = [
+
 {nombre:"Flor Café", img:"img/jabonCafeFlor.jpg"},
 {nombre:"Azul S&B", img:"img/jabonRectangular.jpg"},
 {nombre:"Coco", img:"img/jabonDeCoco.jpg"},
 {nombre:"Mar Concha", img:"img/jabonDeMar.jpg"},
 {nombre:"Mar Pez", img:"img/jabonDeMarDove.jpg"},
 
-{nombre:"Relajante Naranja", img:"img/azul relajante naranja.jpeg"},
+/* 👇 AGREGA TODOS TUS PRODUCTOS AQUÍ (SIN ERRORES) */
+
+{nombre:"Azul Naranja ", img:"img/azul relajante naranja.jpeg"},
 {nombre:"Avena y Canela", img:"img/bluerectangular avena y canela.jpeg"},
 {nombre:"Caballito Canela Miel", img:"img/caballito canela miel.jpeg"},
-{nombre:"Cola de Sirena Miel Canela", img:"img/cola de sirena miel canela.jpeg"},
-{nombre:"Delfín Canela Miel", img:"img/delfin canela miel.jpeg"},
-{nombre:"Espiral Miel", img:"img/espiral jabon miel.jpeg"}
+{nombre:"Cola Sirena Miel Canela", img:"img/cola de sirena miel canela.jpeg"},
+{nombre:"Delfin Canela Miel", img:"img/delfin canela miel.jpeg"},
+{nombre:"Espiral Miel", img:"img/espiral jabon miel.jpeg"},
+{nombre:"Flor Naranja Jamaica", img:"img/flor naranja jamaica.jpeg"},
+{nombre:"Concha Canela Miel", img:"img/jabon concha canela miel.jpeg"},
+{nombre:"Estrella Blue S&B", img:"img/jabon estrella blue dove.jpeg"},
+{nombre:"Estrella Canela Miel", img:"img/jabon estrella canela miel.jpeg"}
+
 ];
 
+/* 🚀 GENERAR CATÁLOGO AUTOMÁTICO */
 const contenedor = document.getElementById("productos");
 
-/* 🚀 GENERAR CATÁLOGO */
 productos.forEach((p,i)=>{
 contenedor.innerHTML += `
 <div class="producto">
@@ -78,3 +242,6 @@ window.open("https://wa.me/523333945657?text="+encodeURIComponent(msg));
 }
 
 </script>
+
+</body>
+</html>
